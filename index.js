@@ -47,3 +47,12 @@ const operate = function(numberA, operator, numberB) {
             return power(numberA, numberB);
     }
 }
+
+// 5
+
+const result = document.querySelector('.result');
+const keys = Array.from(document.querySelectorAll('.key'));
+
+keys.forEach(key => key.addEventListener('click', function(event){
+    result.textContent = event.target.textContent;
+}))
