@@ -8,9 +8,7 @@ const subtract = function(a, b) {
 	return a - b;;
 };
 
-const sum = function(array) {
-	return array.reduce((total, current) => total + current, 0);
-};
+// deleted sum function
 
 function divide(a, b) {
     if (b === 0) {
@@ -31,10 +29,16 @@ const power = function(a, b) {
 
 let numberA = 0;
 let numberB = 0;
-let operator = 0;
+// let operator = 0;
 
 // 3
 
 const operate = function(numberA, operator, numberB) {
-    return operator(numberA, numberB);
+    switch(operator){
+        case '+':
+        return add(numberA, numberB);
+        case '-':
+            return subtract(numberA, numberB);
+        case ''
+    }
 }
