@@ -1,0 +1,44 @@
+body {
+    width: 100%;
+    margin: 0;
+    align-items: center;
+}
+
+.calculator {
+    margin: 0 auto;
+    width: 400px;
+    height: 600px;  
+    display: flex;
+    flex-direction: column;
+}
+
+.result {
+    height: 15%;
+    width: 100%;
+    border: 2px solid black;
+    box-sizing: border-box;
+}
+
+.keyboard {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+
+}
+.key {
+    flex: auto;
+    text-align: center;
+    line-height: 100px;
+    width: 23%;
+    height: 23%;
+    border: 1px solid black;
+    margin: 1px;
+}
+
+.delete {
+    align-self: end;
+}
