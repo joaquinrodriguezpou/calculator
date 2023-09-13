@@ -39,6 +39,11 @@ const operate = function(numberA, operator, numberB) {
         return add(numberA, numberB);
         case '-':
             return subtract(numberA, numberB);
-        case ''
+        case '/':
+            return divide(numberA, numberB);
+        case '*':
+            return multiply(numberA, numberB);
+        case '**':
+            return power(numberA, numberB);
     }
 }
