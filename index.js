@@ -29,7 +29,13 @@ const power = function(a, b) {
 
 let numberA = 0;
 let numberB = 0;
-// let operator = 0;
+let calculation = [];
+let lastValue = calculation[calculation.length - 1];
+
+// let operatorPressed = [];
+// let lastDigit = screenResult.textContent.slice(-1);
+
+//
 
 // 3
 
@@ -50,9 +56,36 @@ const operate = function(numberA, operator, numberB) {
 
 // 5
 
-const result = document.querySelector('.result');
-const keys = Array.from(document.querySelectorAll('.key'));
+const screenResult = document.querySelector('.result');
+const numbers = Array.from(document.querySelectorAll('.num'));
 
-keys.forEach(key => key.addEventListener('click', function(event){
-    result.textContent = event.target.textContent;
+numbers.forEach(item => item.addEventListener('click', function(event){
+        if(!isNaN(lastValue)){
+            lastValue = Number(lastValue.toString() + event.target.textContent.toString());
+            calculation[calculation.length - 1] = lastValue;
+        }
+        if(isNaN(lastValue)){
+            calculation.push(Number(event.target.textContent));
+            lastValue = (Number(event.target.textContent));
+        };
+        screenResult.textContent = calculation.join(' ');
+        
 }))
+
+// 6
+
+const operators = Array.from(document.querySelectorAll('.operator'));
+operators.forEach(operator => operator.addEventListener('click', function(event){
+    if(!isNaN(lastValue)){
+        lastValue = event.target.textContent;
+        calculation.push(lastValue);
+    }
+    if(isNaN(lastValue)){
+        lastValue = event.target.textContent;
+        calculation[calculation.length - 1] = lastValue;
+    };
+    screenResult.textContent = calculation.join(' ');
+}))
+
+// showing results
+
