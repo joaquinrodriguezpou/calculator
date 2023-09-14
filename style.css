@@ -39,6 +39,10 @@ body {
     margin: 1px;
 }
 
-.delete {
+.clear {
+    width: 23%;
+    height: 23%;
+    border: 1px solid black;
+    margin: 1px;
     align-self: end;
 }

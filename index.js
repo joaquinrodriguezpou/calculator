@@ -87,5 +87,15 @@ operators.forEach(operator => operator.addEventListener('click', function(event)
     screenResult.textContent = calculation.join(' ');
 }))
 
+// clear calculation
+
+clear = document.querySelector('.clear');
+clear.addEventListener('click', function(){
+    calculation = [];
+    lastValue = calculation[calculation.length - 1];
+    screenResult.textContent = calculation;
+})
+
+
 // showing results
 
