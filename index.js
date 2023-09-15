@@ -1,4 +1,13 @@
-// 1
+let numberA = 0;
+let numberB = 0;
+let operator = 0;
+let calculation = [];
+let lastValue = calculation[calculation.length - 1];
+const screenResult = document.querySelector('.result');
+const numbers = Array.from(document.querySelectorAll('.num'));
+const operators = Array.from(document.querySelectorAll('.operator'));
+const clear = document.querySelector('.clear');
+const equal = document.querySelector('.equal');
 
 const add = function(a, b) {    
     return a + b;
@@ -8,9 +17,7 @@ const subtract = function(a, b) {
 	return a - b;;
 };
 
-// deleted sum function
-
-function divide(a, b) {
+const divide = function (a, b) {
     if (b === 0) {
         return "Division by zero is not allowed.";
     }
@@ -25,20 +32,6 @@ const power = function(a, b) {
 	return a ** b;
 };
 
-// 2
-
-let numberA = 0;
-let numberB = 0;
-let calculation = [];
-let lastValue = calculation[calculation.length - 1];
-
-// let operatorPressed = [];
-// let lastDigit = screenResult.textContent.slice(-1);
-
-//
-
-// 3
-
 const operate = function(numberA, operator, numberB) {
     switch(operator){
         case '+':
@@ -47,17 +40,12 @@ const operate = function(numberA, operator, numberB) {
             return subtract(numberA, numberB);
         case '/':
             return divide(numberA, numberB);
-        case '*':
+        case 'x':
             return multiply(numberA, numberB);
         case '**':
             return power(numberA, numberB);
     }
 }
-
-// 5
-
-const screenResult = document.querySelector('.result');
-const numbers = Array.from(document.querySelectorAll('.num'));
 
 numbers.forEach(item => item.addEventListener('click', function(event){
         if(!isNaN(lastValue)){
@@ -69,12 +57,8 @@ numbers.forEach(item => item.addEventListener('click', function(event){
             lastValue = (Number(event.target.textContent));
         };
         screenResult.textContent = calculation.join(' ');
-        
 }))
 
-// 6
-
-const operators = Array.from(document.querySelectorAll('.operator'));
 operators.forEach(operator => operator.addEventListener('click', function(event){
     if(!isNaN(lastValue)){
         lastValue = event.target.textContent;
@@ -87,15 +71,39 @@ operators.forEach(operator => operator.addEventListener('click', function(event)
     screenResult.textContent = calculation.join(' ');
 }))
 
-// clear calculation
-
-clear = document.querySelector('.clear');
 clear.addEventListener('click', function(){
     calculation = [];
     lastValue = calculation[calculation.length - 1];
     screenResult.textContent = calculation;
 })
+const getResult = function() {
+    while (calculation.length >= 2) {
+        if (calculation.includes('x')) {
+            let indexX = calculation.indexOf('x');
+            let numberA = Number(calculation[indexX - 1]);
+            let operator = calculation[indexX];
+            let numberB = Number(calculation[indexX + 1]);
+            let result = operate(numberA, operator, numberB);
+            calculation.splice(indexX - 1, 3, result); 
+        } else if (calculation.includes('/')) { 
+            let indexDivide = calculation.indexOf('/');
+            let numberA = Number(calculation[indexDivide - 1]);
+            let operator = calculation[indexDivide];
+            let numberB = Number(calculation[indexDivide + 1]);
+            let result = operate(numberA, operator, numberB);
+            calculation.splice(indexDivide - 1, 3, result);
+        } else {
+            let numberA = Number(calculation[0]);
+            let operator = calculation[1];
+            let numberB = Number(calculation[2]);
+            let result = operate(numberA, operator, numberB);
+            calculation.splice(0, 3, result);
+        }
+    }
+    screenResult.textContent = calculation.join(' ');
+}
 
-
-// showing results
+equal.addEventListener('click', function(){
+    getResult();
+})
 
