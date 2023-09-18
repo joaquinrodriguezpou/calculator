@@ -18,7 +18,7 @@ function add(a, b) {
 }  
 
 const subtract = function(a, b) {
-	return a - b;;
+	return a - b;
 };
 
 const divide = function (a, b) {
@@ -54,34 +54,32 @@ const operate = function(numberA, operator, numberB) {
 numbers.forEach(item => item.addEventListener('click', function(event){
         let input = event.target.textContent;
         if (input === '.') {
-            lastValue = Number(lastValue.toString() + input.toString());
-            calculation[calculation.length - 1] = lastValue;
+            calculation[calculation.length - 1] = Number(lastValue.toString() + input.toString());
         }
         if(!isNaN(lastValue)){
-            lastValue = Number(lastValue.toString() + input.toString());
-            calculation[calculation.length - 1] = lastValue;
+            calculation[calculation.length - 1] = Number(lastValue.toString() + input.toString());
         }
         if(isNaN(lastValue)){
             calculation.push(Number(input));
-            lastValue = (Number(input));
         };
-        secondaryResult.textContent = calculation.join(' ');
+        lastValue = calculation[calculation.length - 1];
+        mainResult.textContent = lastValue;
 }))
 
 operators.forEach(operator => operator.addEventListener('click', function(event){
     if(!isNaN(lastValue)){
-        lastValue = event.target.textContent;
-        calculation.push(lastValue);
+        calculation.push(event.target.textContent);
     }
     if(isNaN(lastValue)){
-        lastValue = event.target.textContent;
-        calculation[calculation.length - 1] = lastValue;
+        calculation[calculation.length - 1] = event.target.textContent;
     };
     secondaryResult.textContent = calculation.join(' ');
+    lastValue = calculation[calculation.length - 1];
 }))
 
 clear.addEventListener('click', function(){
     calculation = [];
+    calculationCopy = [];
     lastValue = calculation[calculation.length - 1];
     secondaryResult.textContent = '';
     mainResult.textContent = '0';
@@ -91,18 +89,19 @@ backSpace.addEventListener('click', function(){
     calculation.pop();
     if(calculation.length === 0){    
         lastValue = '';
-        secondaryResult.textContent = '0';  
+        secondaryResult.textContent = '';  
     }
     else{
         lastValue = calculation[calculation.length - 1];
         secondaryResult.textContent = calculation.join(' ');
     }
+    mainResult.textContent = '0';
 })
 
 const getResult = function() {
     let calculationCopy = calculation.slice();
     while (calculationCopy.length >= 2) {
-        if (calculation.includes('x')) {
+        if (calculationCopy.includes('x')) {
             let indexX = calculationCopy.indexOf('x');
             let numberA = Number(calculationCopy[indexX - 1]);
             let operator = calculationCopy[indexX];
@@ -118,13 +117,14 @@ const getResult = function() {
             calculationCopy.splice(indexDivide - 1, 3, result);
         } else {
             let numberA = Number(calculationCopy[0]);
-            let operator = calculation[1];
+            let operator = calculationCopy[1];
             let numberB = Number(calculationCopy[2]);
             let result = operate(numberA, operator, numberB);
             calculationCopy.splice(0, 3, result);
         }
     }
     mainResult.textContent = calculationCopy;
+    secondaryResult.textContent = calculation.join(' ') + ' =';
 }
 
 equal.addEventListener('click', function(){
@@ -132,4 +132,3 @@ equal.addEventListener('click', function(){
     getResult();
     }
 })
-
